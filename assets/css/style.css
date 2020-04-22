@@ -1,0 +1,151 @@
+* {
+    font-family: 'Baloo Bhaina 2', cursive;
+    color: #545454;
+}
+
+html,
+body {
+    margin: 0;
+    height: 100%;
+}
+
+/* outer div containing the whole page */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+/* vertically center the content of the page (only for the div also having indexPage class */
+.wrapper.indexPage {
+    justify-content: center;
+}
+
+/* 
+horizontally center elements in main section
+(do it here instead of .wrapper.indexPage to make
+sure logo and search bar are correctly centered
+*/
+.mainSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainSection .searchContainer {
+    margin-top: 20px;
+    width: 100%;
+}
+
+
+.mainSection .searchContainer form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* pulls the search box closer to the logo */
+.mainSection .logoContainer {
+    width: 300px;
+    text-align: center;
+}
+
+.logoContainer img {
+    width: 100%;
+}
+
+/* styling for search button on search page */
+.searchContainer .searchButton {
+    color: #757575;
+    background-color: #f5f5f5;
+    border: none;
+    height: 36px;
+    width: 125px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+    outline: none;
+}
+
+.mainSection .searchContainer .searchBox {
+    border: none;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+    height: 44px;
+    border-radius: 5px;
+    outline: none;
+    padding: 10px;
+    box-sizing: border-box;     /* include the padding in the height of the text box */
+    font-size: 16px;
+    width: 70%;
+    max-width: 630px;
+    color: #000;
+}
+
+
+/* from here specific styles for search.php */
+.header {
+    background-color: #fafafa;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.wrapper .headerContent {
+    display: flex;
+    align-items: center;
+}
+
+.headerContent .logoContainer {
+    width: 200px;
+    padding: 5px 20px;
+    box-sizing: border-box;
+}
+
+.headerContent .searchContainer {
+    flex: 1;    /* fills out all the available space horizontally */
+}
+
+.headerContent .searchContainer form {
+    margin: 23px 0 28px 0;
+}
+
+/*
+the element containing the search box and the search button is styled
+to look as a text box, so that the search button seems to be inside the
+text bar
+*/
+.headerContent .searchBarContainer {
+    height: 44px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+    width: 70%;
+    max-width: 630px;
+    box-sizing: border-box;
+    display: flex;
+}
+
+/* style for the search bar */
+.headerContent .searchBarContainer .searchBox {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    padding: 12px;  /* moves the text from the user 12px from the border (interested in moving from left border) */
+    font-size: 16px;
+    color: #000;
+}
+
+.headerContent .searchBarContainer .searchButton {
+    background-color: #fff;
+    height: 44px;
+    margin-top: 0;
+    width: 44px;
+    padding-right: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.headerContent .searchBarContainer .searchButton img {
+    width: 27px;
+}
