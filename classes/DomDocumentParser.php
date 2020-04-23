@@ -41,6 +41,15 @@ class DomDocumentParser {
     public function getMetaTags() {
         return $this->doc->getElementsByTagName("meta");
     }
+
+    /**
+     * getImgTag gets the <img> tags in the html document
+     * 
+     * @return -> []
+     */
+    public function getImgTags() {
+        return $this->doc->getElementsByTagName("img");
+    }
 }
 
 ?>
