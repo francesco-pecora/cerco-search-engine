@@ -5,6 +5,7 @@ include("classes/DomDocumentParser.php");
 // GLOBAL VARIABLES
 $alreadyCrawled = [];
 $stillCrawling = [];
+$alreadyFoundImages = [];
 
 
 /**
@@ -46,6 +47,31 @@ function insertInDatabase($url, $title, $description, $keywords) {
     $query->bindParam(":title", $title);
     $query->bindParam(":description", $description);
     $query->bindParam(":keywords", $keywords);
+
+    return $query->execute();   // returns true if worked
+}
+
+
+/**
+ * inserts the image into the database.
+ * 
+ * @param $url -> link to the website containing the image
+ * @param $src -> link to the image
+ * @param $alt -> message shown when image fails to load
+ * @param $title -> message displayed hovering on image
+ * @return -> true if the query succesfully run; false if not
+ */
+function insertImageInDatabase($url, $src, $alt, $title) {
+    global $conn;
+
+    $query = $conn->prepare("INSERT INTO images (siteUrl, imageUrl, alt, title) 
+                             VALUES (:siteUrl, :imageUrl, :alt, :title);");
+
+    // avoid sql injections
+    $query->bindParam(":siteUrl", $url);
+    $query->bindParam(":imageUrl", $src);
+    $query->bindParam(":alt", $alt);
+    $query->bindParam(":title", $title);
 
     return $query->execute();   // returns true if worked
 }
@@ -141,6 +167,37 @@ function getUrlMeta($parser) {
 
 
 /**
+ * gets the info about the images in the web page and stores the images in database
+ * 
+ * @param $parser -> DomDocumentParser object
+ * @param $url -> link to the website
+ */
+function getUrlImages($parser, $url) {
+    global $alreadyFoundImages;
+
+    $imageArray = $parser->getImgTags();
+    foreach ($imageArray as $image) {
+        $src = $image->getAttribute("src");
+        $alt = $image->getAttribute("alt");
+        $title = $image->getAttribute("title");
+
+        if (!$title && !$alt) {
+            continue;
+        }
+
+        $src = convertRealtiveToAbsoluteUrl($src, $url);
+
+        // avoiding to display images multiple times
+        if (!in_array($src, $alreadyFoundImages)) {
+            $alreadyFoundImages[] = $src;
+
+            insertImageInDatabase($url, $src, $alt, $title);
+        }
+    }
+}
+
+
+/**
  * gets the information about the website that needs to be displayed
  * 
  * @param $url -> link to the website
@@ -166,6 +223,8 @@ function getUrlDetails($url) {
     else {
         echo "[ERROR] Failed to insert $url <br><br>";
     }
+
+    getUrlImages($parser, $url);
 }
 
 
