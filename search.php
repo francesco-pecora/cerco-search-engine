@@ -23,7 +23,7 @@
                 <div class="searchContainer">
                     <form action="search.php" method="GET">
                         <div class="searchBarContainer">
-                            <input class="searchBox" type="text" name="term"/>
+                            <input class="searchBox" type="text" name="term" value="<?php echo$term ?>"/>
                             <button class="searchButton">
                                 <img src="assets/images/magnifying-glass-search.png"/>
                             </button>
