@@ -1,9 +1,54 @@
 <?php
-
+include("config.php");
 include("classes/DomDocumentParser.php");
 
+// GLOBAL VARIABLES
 $alreadyCrawled = [];
 $stillCrawling = [];
+
+
+/**
+ * checks if the url is already in the database.
+ * 
+ * @param $url -> link to the website to be checked
+ * @return -> true if url already in database; false if not
+ */
+function existsInDatabase($url) {
+    global $conn;
+
+    $query = $conn->prepare("SELECT * FROM sites WHERE url = :url");
+
+    // avoid sql injections
+    $query->bindParam(":url", $url);
+    $query->execute();
+
+    return $query->rowCount() != 0; // returns true if url exists in db
+}
+
+
+/**
+ * inserts the data into the database.
+ * 
+ * @param $url -> link to the website
+ * @param $title -> title of the website
+ * @param $description -> description of the website
+ * @param $keywords -> keywords for the website
+ * @return -> true if the query succesfully run; false if not
+ */
+function insertInDatabase($url, $title, $description, $keywords) {
+    global $conn;
+
+    $query = $conn->prepare("INSERT INTO sites (url, title, description, keywords) 
+                             VALUES (:url, :title, :description, :keywords);");
+
+    // avoid sql injections
+    $query->bindParam(":url", $url);
+    $query->bindParam(":title", $title);
+    $query->bindParam(":description", $description);
+    $query->bindParam(":keywords", $keywords);
+
+    return $query->execute();   // returns true if worked
+}
 
 
 /**
@@ -111,7 +156,16 @@ function getUrlDetails($url) {
     $description = $descAndKeywords[0];
     $keywords = $descAndKeywords[1];
 
-    echo "URL: $url <br> TITLE: $title <br> DESCRIPTION: $description <br><br>";
+    // make sure we are not double-inserting websites in database
+    if (existsInDatabase($url)) {
+        echo "$url already exists <br><br>";
+    }
+    else if (insertInDatabase($url, $title, $description, $keywords)) {
+        echo "[SUCCESS] $url <br><br>";
+    }
+    else {
+        echo "[ERROR] Failed to insert $url <br><br>";
+    }
 }
 
 

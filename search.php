@@ -1,4 +1,6 @@
 <?php
+    include("config.php");
+    
     $term = isset($_GET["term"]) ? $_GET["term"] : "";      // $term is the search from the user
     $type = isset($_GET["type"]) ? $_GET["type"] : "sites"; // $type is the tab in which the user is
 ?>
