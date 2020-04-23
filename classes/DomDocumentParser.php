@@ -16,12 +16,30 @@ class DomDocumentParser {
     }
 
     /**
-     * gets all the <a> tags in the html document
+     * getLinkTag gets all the <a> tags in the html document
      * 
      * @return -> []
      */
-    public function getLinks() {
+    public function getLinkTags() {
         return $this->doc->getElementsByTagName("a");
+    }
+
+    /**
+     * getTitleTag gets the <title> tags in the html document
+     * 
+     * @return -> []
+     */
+    public function getTitleTags() {
+        return $this->doc->getElementsByTagName("title");
+    }
+
+    /**
+     * getMetaTag gets the <meta> tags in the html document
+     * 
+     * @return -> []
+     */
+    public function getMetaTags() {
+        return $this->doc->getElementsByTagName("meta");
     }
 }
 
