@@ -142,6 +142,7 @@ text bar
     margin-top: 0;
     width: 44px;
     padding-right: 20px;
+    padding-left: 20px;
     display: flex;
     justify-content: center;
 }

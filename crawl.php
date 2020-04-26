@@ -267,7 +267,7 @@ function crawlUrl($url) {
 
             getUrlDetails($href);
         }
-        else return;    // just stop FOR NOW when duplicate to avoid infinite loop
+        //else return;    // just stop FOR NOW when duplicate to avoid infinite loop
     }
 
     // remove already crawled url
@@ -279,7 +279,7 @@ function crawlUrl($url) {
     }
 }
 
-$startUrl = "http://www.apple.com";
+$startUrl = "http://www.redbull.com";
 crawlUrl($startUrl);
 
 ?>

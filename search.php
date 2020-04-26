@@ -1,6 +1,7 @@
 <?php
     include("config.php");
-    
+    include("classes/SearchResultsProvider.php");
+
     $term = isset($_GET["term"]) ? $_GET["term"] : "";      // $term is the search from the user
     $type = isset($_GET["type"]) ? $_GET["type"] : "sites"; // $type is the tab in which the user is
 ?>
@@ -40,6 +41,14 @@
                     <li class="<?php echo$type == 'images' ? 'active' : '' ?>"><a href='<?php echo "search.php?term=$term&type=images"; ?>'>Images</a></li>
                 </ul>
             </div>
+        </div>
+        <div class="mainResultsSection">
+            <?php
+
+                $resultsProvider = new SearchResultsProvider($conn);
+                echo $resultsProvider->getNumResults($term);
+
+            ?>
         </div>
     </div>
 </body>
