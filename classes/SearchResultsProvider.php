@@ -37,6 +37,46 @@ class SearchResultsProvider {
         $row = $query->fetch(PDO::FETCH_ASSOC);
         return $row["total"];
     }
+
+    public function getResultsHTML($page, $pageSize, $term) {
+        $query = $this->conn->prepare("SELECT * FROM sites
+                                        WHERE title LIKE :term
+                                        OR url LIKE :term
+                                        OR keywords LIKE :term
+                                        OR description LIKE :term
+                                        ORDER BY clicks DESC");
+        
+        $term = "%" . $term . "%";
+        $query->bindParam(":term", $term);
+        $query->execute();
+
+        $resultsHTML = "<div class='siteResults'>";
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            $id = $row["id"];
+            $url = $row["url"];
+            $title = $row["title"];
+            $description = $row["description"];
+
+            $title = $this->trimField($title, 55);
+            $description = $this->trimField($description, 230);
+
+            $resultsHTML .= "<div class='resultContainer'>
+                                <h3 class='title'>
+                                    <a class='result' href='$url'>$title</a>
+                                </h3>
+                                <span class='url'>$url</span>
+                                <span class='description'>$description</span>
+                             </div>";
+        }
+        $resultsHTML .= "</div>";
+
+        return $resultsHTML;
+    }
+
+    private function trimField($string, $characterLimit) {
+        $dots = strlen($string) > $characterLimit ? " . . ." : "";
+        return substr($string, 0, $characterLimit) . $dots;
+    }
 }
 
 ?>
