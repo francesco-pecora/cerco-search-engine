@@ -46,8 +46,10 @@
             <?php
 
                 $resultsProvider = new SearchResultsProvider($conn);
-                echo $resultsProvider->getNumResults($term);
+                $numResults =  $resultsProvider->getNumResults($term);
 
+                echo "<p class='resultsCount'>$numResults results found.</p>";
+                echo $resultsProvider->getResultsHTML(1, 20, $term);
             ?>
         </div>
     </div>
