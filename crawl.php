@@ -279,7 +279,7 @@ function crawlUrl($url) {
     }
 }
 
-$startUrl = "http://www.redbull.com";
+$startUrl = "https://www.redbull.com";
 crawlUrl($startUrl);
 
 ?>
