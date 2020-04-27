@@ -78,7 +78,10 @@ class ImageResultsProvider {
             else $displaytext = $imageUrl;
 
             $resultsHTML .= "<div class='gridItem image$count'>
-                                <a href='$imageUrl'>
+                                <a href='$imageUrl' 
+                                   data-fancybox 
+                                   data-caption='$displaytext'
+                                   data-siteurl='$siteUrl'>
                                     <script>
                                         $(document).ready(() => {
                                             loadImage(\"$imageUrl\", \"image$count\");
