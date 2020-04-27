@@ -228,3 +228,37 @@ text bar
 .resultContainer .description {
     font-size: 12px;
 }
+
+.paginationContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.pageButtons {
+    display: flex;
+}
+
+.pageNumberContainer,
+.pageNumberContainer a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+}
+
+.pageButtons .pageNumberContainer img {
+    height: 70px;
+}
+
+.pageNumberContainer span:hover {
+    color: tomato;
+}
+
+.pageNumber {
+    color: #000;
+    font-size: 13px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
