@@ -157,7 +157,7 @@ function getUrlMeta($parser) {
             $description = str_replace("\n", "", $description); // cleaning output
         }
         if ($meta->getAttribute("name") == "keywords") {
-            $keywords = $metaArray->getAttribute("content");
+            $keywords = $meta->getAttribute("content");
             $keywords = str_replace("\n", "", $keywords);       // cleaning output
         }
     }
@@ -279,7 +279,7 @@ function crawlUrl($url) {
     }
 }
 
-$startUrl = "https://www.formula1.com/en/video.html";
+$startUrl = "https://www.formula1.com/";
 crawlUrl($startUrl);
 
 ?>
