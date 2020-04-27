@@ -9,6 +9,6 @@ if (isset($_POST["linkID"])) {
     $query->execute();
 }
 else {
-    echo "No link passed to page";
+    echo "[ERROR] No link passed to page";
 }
 ?>
