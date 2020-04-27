@@ -1,6 +1,7 @@
 <?php
     include("config.php");
     include("classes/SearchResultsProvider.php");
+    include("classes/ImageResultsProvider.php");
 
     $term = isset($_GET["term"]) ? $_GET["term"] : "";      // $term is the search from the user
     $type = isset($_GET["type"]) ? $_GET["type"] : "sites"; // $type is the tab in which the user is
@@ -57,8 +58,14 @@
         <div class="mainResultsSection">
             <?php
 
-                $resultsProvider = new SearchResultsProvider($conn);
-                $pageSize = 20;
+                if ($type == "sites") {
+                    $resultsProvider = new SearchResultsProvider($conn);
+                    $pageSize = 20;
+                }
+                else {
+                    $resultsProvider = new ImageResultsProvider($conn);
+                    $pageSize = 30;
+                }
 
                 $numResults =  $resultsProvider->getNumResults($term);
 
@@ -112,6 +119,7 @@
             </div>
         </div>
     </div>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script type="text/javascript" src="assets/javascript/script.js"></script>
 </body>
 </html>

@@ -1,9 +1,9 @@
 <?php
 
 /**
- * class utilized to handle search results
+ * class utilized to handle images results
  */
-class SearchResultsProvider {
+class ImageResultsProvider {
     
     private $conn;
     
@@ -19,10 +19,10 @@ class SearchResultsProvider {
      */
     public function getNumResults($term) {
         $query = $this->conn->prepare("SELECT COUNT(*) as total
-                                        FROM sites WHERE title LIKE :term
-                                        OR url LIKE :term
-                                        OR keywords LIKE :term
-                                        OR description LIKE :term");
+                                        FROM images 
+                                        WHERE (title LIKE :term
+                                        OR alt LIKE :term)
+                                        AND broken = 0");
         
         /*
         Adding % symbols otherwise the LIKE function in the query would only count
@@ -38,7 +38,6 @@ class SearchResultsProvider {
         return $row["total"];
     }
 
-
     /**
      * getResultsHTML puts all the information into an html string to be displayed in the page
      * 
@@ -51,11 +50,10 @@ class SearchResultsProvider {
 
         $fromLimit = ($page -1) * $pageSize;
 
-        $query = $this->conn->prepare("SELECT * FROM sites
-                                        WHERE title LIKE :term
-                                        OR url LIKE :term
-                                        OR keywords LIKE :term
-                                        OR description LIKE :term
+        $query = $this->conn->prepare("SELECT * FROM images    
+                                        WHERE (title LIKE :term
+                                        OR alt LIKE :term)
+                                        AND broken = 0
                                         ORDER BY clicks DESC
                                         LIMIT :fromLimit, :pageSize");
         
@@ -65,32 +63,34 @@ class SearchResultsProvider {
         $query->bindParam(":pageSize", $pageSize, PDO::PARAM_INT);
         $query->execute();
 
-        $resultsHTML = "<div class='siteResults'>";
+        $resultsHTML = "<div class='imageResults'>";
+        $count = 0;     // to keep track of the image with an ID to load it in resultsHTML
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            $count++;
             $id = $row["id"];
-            $url = $row["url"];
+            $imageUrl = $row["imageUrl"];
+            $siteUrl = $row["siteUrl"];
             $title = $row["title"];
-            $description = $row["description"];
+            $alt = $row["alt"];
 
-            $title = $this->trimField($title, 55);
-            $description = $this->trimField($description, 230);
+            if ($title) $displaytext = $title;
+            else if ($alt) $displaytext = $alt;
+            else $displaytext = $imageUrl;
 
-            $resultsHTML .= "<div class='resultContainer'>
-                                <h3 class='title'>
-                                    <a class='result' href='$url' data-linkID='$id'>$title</a>
-                                </h3>
-                                <span class='url'>$url</span>
-                                <span class='description'>$description</span>
+            $resultsHTML .= "<div class='gridItem image$count'>
+                                <a href='$imageUrl'>
+                                    <script>
+                                        $(document).ready(() => {
+                                            loadImage(\"$imageUrl\", \"image$count\");
+                                        });
+                                    </script>
+                                    <span class='details'>$displaytext</span>
+                                </a>
                              </div>";
         }
         $resultsHTML .= "</div>";
 
         return $resultsHTML;
-    }
-
-    private function trimField($string, $characterLimit) {
-        $dots = strlen($string) > $characterLimit ? " . . ." : "";
-        return substr($string, 0, $characterLimit) . $dots;
     }
 }
 
