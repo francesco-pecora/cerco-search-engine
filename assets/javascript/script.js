@@ -42,6 +42,10 @@ $(document).ready(() => {
             }
 
             return caption;
+        },
+        // increase cliks for ranking
+        afterShow: function(instance, item){
+            increaseImageClicks(item.src);
         }
     });
 });
@@ -86,5 +90,21 @@ const increaseLinkClicks = (linkID, url) => {
             return;
         }
         window.location.href = url; // redirect to website clicked
+    });
+};
+
+
+/**
+ * increaseImageClicks sends the data to php to increase the clicks entry by one (to then rank)
+ * 
+ * @param {str} imageURL -> url of the image
+ */
+const increaseImageClicks = (imageURL) => {
+    $.post("ajax/updateImageCount.php", {imageURL: imageURL})
+    .done((res) => {
+        if (res !== "") {
+            alert(res);
+            return;
+        }
     });
 };
