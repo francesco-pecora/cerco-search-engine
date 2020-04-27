@@ -279,7 +279,7 @@ function crawlUrl($url) {
     }
 }
 
-$startUrl = "https://www.redbull.com";
+$startUrl = "https://www.formula1.com/en/video.html";
 crawlUrl($startUrl);
 
 ?>
