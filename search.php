@@ -13,6 +13,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2&display=swap" rel="stylesheet">
+    <script
+        src="https://code.jquery.com/jquery-3.5.0.min.js"
+        integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+        crossorigin="anonymous">
+    </script>
     <title>Cerco</title>
 </head>
 <body>
@@ -28,6 +33,7 @@
                 <div class="searchContainer">
                     <form action="search.php" method="GET">
                         <div class="searchBarContainer">
+                            <input type="hidden" name="type" value="<?php echo $type ?>">
                             <input class="searchBox" type="text" name="term" value="<?php echo$term ?>"/>
                             <button class="searchButton">
                                 <img src="assets/images/magnifying-glass-search.png"/>
@@ -106,5 +112,6 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="assets/javascript/script.js"></script>
 </body>
 </html>
