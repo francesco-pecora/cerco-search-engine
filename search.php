@@ -2,10 +2,13 @@
     include("config.php");
     include("classes/SearchResultsProvider.php");
     include("classes/ImageResultsProvider.php");
+    include("features/handleMath.php");
 
     $term = isset($_GET["term"]) ? $_GET["term"] : "";      // $term is the search from the user
     $type = isset($_GET["type"]) ? $_GET["type"] : "sites"; // $type is the tab in which the user is
     $page = isset($_GET["page"]) ? $_GET["page"] : 1;
+
+    $mathResult = evaluateMathEquation($term);              // if evaluates, it's gonna display the result on the page
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,6 +45,15 @@
                             </button>
                         </div>
                     </form>
+                    <?php
+                    if ($mathResult) {
+                        echo "
+                                <div class='mathResultContainer'>
+                                    <p class='mathResult'>Result: $term = $mathResult</p> 
+                                </div>
+                            ";
+                    }
+                    ?>
                 </div>
 
             </div>
