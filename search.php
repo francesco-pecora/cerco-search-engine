@@ -1,8 +1,8 @@
 <?php
-    include("config.php");
-    include("classes/SearchResultsProvider.php");
-    include("classes/ImageResultsProvider.php");
-    include("features/handleMath.php");
+    include("./config.php");
+    include("./classes/SearchResultsProvider.php");
+    include("./classes/ImageResultsProvider.php");
+    include("./features/handleMath.php");
 
     $term = isset($_GET["term"]) ? $_GET["term"] : "";      // $term is the search from the user
     $type = isset($_GET["type"]) ? $_GET["type"] : "sites"; // $type is the tab in which the user is
@@ -16,7 +16,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2&display=swap" rel="stylesheet">
     <script
         src="https://code.jquery.com/jquery-3.5.0.min.js"
@@ -41,7 +41,7 @@
                             <input type="hidden" name="type" value="<?php echo $type ?>">
                             <input class="searchBox" type="text" name="term" value="<?php echo$term ?>"/>
                             <button class="searchButton">
-                                <img src="assets/images/magnifying-glass-search.png"/>
+                                <img src="./assets/images/magnifying-glass-search.png"/>
                             </button>
                         </div>
                     </form>
@@ -91,7 +91,7 @@
             <div class="pageButtons">
 
                 <div class="pageNumberContainer">
-                    <img src="assets/images/start.png" alt="start">
+                    <img src="./assets/images/start.png" alt="start">
                 </div>
 
                 <?php
@@ -108,13 +108,13 @@
 
                         if ($currentPage == $page) {              // how the selected page is displayed
                             echo "<div class='pageNumberContainer'>
-                                    <img src='assets/images/e.png'>
+                                    <img src='./assets/images/e.png'>
                                     <span>$currentPage</span>
                                 </div>";
                         } else {                                  // how the other pages are displayed
                             echo "<div class='pageNumberContainer'>
                                     <a href='search.php?term=$term&type=$type&page=$currentPage'>
-                                        <img src='assets/images/e.png'>
+                                        <img src='./assets/images/e.png'>
                                         <span class='pageNumber'>$currentPage</span>
                                     </a>
                                 </div>";
@@ -126,7 +126,7 @@
                 ?>
 
                 <div class="pageNumberContainer">
-                    <img src="assets/images/end.png" alt="start">
+                    <img src="./assets/images/end.png" alt="start">
                 </div>
 
             </div>
@@ -134,6 +134,6 @@
     </div>
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-    <script type="text/javascript" src="assets/javascript/script.js"></script>
+    <script type="text/javascript" src="./assets/javascript/script.js"></script>
 </body>
 </html>

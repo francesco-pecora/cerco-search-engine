@@ -255,7 +255,7 @@ function crawlUrl($url) {
         }
 
         $href = convertRealtiveToAbsoluteUrl($href, $url);
-
+        
         // skip links which are not any type of relative url and does not get converted
         if ($href == -1) {
             continue;
@@ -279,7 +279,7 @@ function crawlUrl($url) {
     }
 }
 
-$startUrl = "https://www.formula1.com/";
+$startUrl = "https://unsplash.com/";
 crawlUrl($startUrl);
 
 ?>

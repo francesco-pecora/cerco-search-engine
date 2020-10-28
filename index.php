@@ -5,7 +5,7 @@
     <meta name="description" content="Search for websites and images">
     <meta name="author" content="Francesco Pecora">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2&display=swap" rel="stylesheet">
     <title>Cerco</title>
 </head>
