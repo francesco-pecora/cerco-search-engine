@@ -16,7 +16,7 @@ Implementation of a search engine that includes the ability to search web pages 
 ├── <strong>ajax</strong>
 │   ├── setBroken.php
 |   ├── updateImageCount.php
-|   ├── updateLinkCount.php
+|   └── updateLinkCount.php
 ├── <strong>assets</strong>
 │   ├── <strong>*css*</strong>
 │   |   └── style.css
